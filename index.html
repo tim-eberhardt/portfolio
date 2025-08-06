@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Tim's Portfolio</title>
+  <style>
+    /* CSS Variables for customization */
+    :root {
+      --bg-color: #e7e7e7;
+      --text-color: #000000;
+      --accent-color: #ff0000;
+      --border-color: #000000;
+      --border-width: 1px;
+      --font-main: 'Courier New', monospace;
+      --font-heading: 'Arial', sans-serif;
+      --spacing: 2rem;
+      
+      /* Individual section color variables */
+      --skills-title-color: #1b85b8;
+      --skills-text-color: #1b85b8;
+      --projects-title-color: #559e83;
+      --projects-text-color: #559e83;
+      --contact-title-color: #ae5a41;
+      --contact-text-color: #ae5a41;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-main);
+      line-height: 1.3;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      margin: 0 auto;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 var(--spacing);
+    }
+
+    /* Typography */
+    h1, h3 {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: var(--spacing);
+      color: var(--text-color);
+    }
+
+    h1 {
+      font-size: 4rem;
+      line-height: 0.9;
+    }
+
+    h2 {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-top: var(--spacing);
+      margin-bottom: var(--spacing);
+      position: relative;
+      font-size: 3rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: calc(var(--spacing) / 2);
+    }
+
+    p {
+      margin-bottom: var(--spacing);
+      max-width: 65ch;
+    }
+
+    a {
+      color: var(--text-color);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent-color);
+      padding-bottom: 2px;
+      font-weight: bold;
+    }
+
+    a:hover {
+      background-color: var(--accent-color);
+      color: #bdb8b8;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: var(--bg-color);
+      padding: 1rem var(--spacing);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li {
+      margin-left: 30px;
+    }
+
+    .nav-links a {
+      font-size: 1rem;
+      border-bottom: none;
+    }
+
+    .nav-links a:hover {
+      border-bottom: 1px solid var(--accent-color);
+      background-color: transparent;
+      color: var(--text-color);
+    }
+
+    /* Project Grid Layout */
+    .projects-container {
+      margin-top: 6rem;
+      padding: var(--spacing);
+      position: relative;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: minmax(100px, auto);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      border: var(--border-width) solid var(--border-color);
+      transition: transform 0.3s ease;
+      border-radius: 16px;
+    }
+
+    .project-card:hover {
+      transform: scale(1.02);
+    }
+
+    /* Project card size variations */
+    .project-large {
+      grid-column: span 6;
+      grid-row: span 5;
+    }
+
+    .project-medium {
+      grid-column: span 5;
+      grid-row: span 4;
+    }
+
+    .project-small {
+      grid-column: span 4;
+      grid-row: span 1;
+    }
+
+    .project-tall {
+      grid-column: span 4;
+      grid-row: span 3;
+    }
+
+    .project-wide {
+      grid-column: span 12;
+      grid-row: span 1;
+    }
+
+    /* Project positioning variations */
+    .project-offset-up {
+      margin-top: -2rem;
+    }
+
+    .project-offset-down {
+      margin-top: 5rem;
+    }
+
+    .project-offset-left {
+      margin-left: -1rem;
+    }
+
+    .project-offset-right {
+      margin-left: 3rem;
+    }
+
+    .project-row2-start{
+      grid-row: 6
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover img {
+      filter: grayscale(0%);
+    }
+
+    .project-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 1rem;
+      background-color: rgba(var(--bg-color-rgb, 231, 231, 231), 0.85);
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover .project-info {
+      transform: translateY(0);
+    }
+
+    .project-title {
+      font-family: var(--font-heading);
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .project-tags {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    /* About Section */
+    .about-section {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-color);
+      z-index: 1001;
+      padding: 2rem;
+      overflow-y: auto;
+      transition: transform 0.5s ease;
+      transform: translateX(-100%);
+    }
+
+    .about-section.open {
+      transform: translateX(0);
+    }
+
+    .about-header {
+      border-bottom: var(--border-width) solid var(--border-color);
+      padding-bottom: var(--spacing);
+      margin-bottom: calc(var(--spacing) * 2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .about-logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-family: var(--font-heading);
+    }
+
+    .about-back-link {
+      display: inline-block;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      font-weight: bold;
+      border-bottom: none;
+      color: var(--text-color);
+      text-decoration: none;
+      padding-bottom: 2px;
+    }
+
+    .about-back-link:hover {
+      background-color: transparent;
+      color: var(--accent-color);
+    }
+
+    .about-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: calc(var(--spacing) * 2);
+      align-items: start;
+    }
+
+    .about-text {
+      max-width: none;
+    }
+
+    .about-image-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 2rem;
+    }
+
+    .profile-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: var(--border-width) solid var(--border-color);
+      object-fit: cover;
+      background-color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+    }
+
+    .about-close {
+      display: none;
+    }
+
+    .skills-section {
+      grid-column: 1 / -1;
+      margin-top: calc(var(--spacing) * 2);
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: var(--spacing);
+    }
+
+    .skill-tag {
+      background-color: var(--text-color);
+      color: var(--bg-color);
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      border: var(--border-width) solid var(--border-color);
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .skill-tag:hover {
+      background-color: var(--accent-color);
+      color: #ffffff;
+    }
+    /* Add space between skills and footer in about section */
+    .about-section .skills-section {
+      margin-bottom: calc(var(--spacing) * 2);
+    }
+
+    /* Contact Section */
+    .contact-section {
+      padding: var(--spacing);
+      margin: 5rem 0;
+      border-top: var(--border-width) solid var(--border-color);
+    }
+
+    .contact-form {
+      border: var(--border-width) solid var(--border-color);
+      padding: var(--spacing);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: var(--spacing);
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border: var(--border-width) solid var(--border-color);
+      font-family: var(--font-main);
+      font-size: 1rem;
+      background-color: transparent;
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+    }
+
+    .btn {
+      background-color: var(--text-color);
+      color: var(--bg-color);
+      padding: 15px 30px;
+      border: none;
+      font-family: var(--font-heading);
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: var(--accent-color);
+    }
+
+    /* Footer */
+    footer {
+      border-top: var(--border-width) solid var(--border-color);
+      padding: var(--spacing);
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .social-links a {
+      font-size: 1.2rem;
+      border-bottom: none;
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+      --bg-color: #000000;
+      --text-color: #ffffff;
+      --border-color: #ffffff;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1200px) {
+      .project-grid {
+        grid-template-columns: repeat(8, 1fr);
+      }
+      
+      .project-large {
+        grid-column: span 5;
+      }
+      
+      .project-medium {
+        grid-column: span 4;
+      }
+      
+      .project-small, .project-tall {
+        grid-column: span 3;
+      }
+      
+      .project-wide {
+        grid-column: span 8;
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --spacing: 1rem;
+      }
+      
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      .project-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+      }
+      
+      .project-large, .project-medium, .project-wide {
+        grid-column: span 4;
+        grid-row: span 1;
+      }
+      
+      .project-small, .project-tall {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: var(--spacing);
+      }
+      
+      .project-offset-up, .project-offset-down, .project-offset-left, .project-offset-right {
+        margin: 0;
+      }
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing);
+      }
+
+      .about-image-container {
+        order: -1;
+        padding-top: 0;
+        padding-bottom: var(--spacing);
+      }
+
+      .profile-image {
+        width: 150px;
+        height: 150px;
+      }
+
+      .skills-list {
+        gap: 0.5rem;
+      }
+
+      .skill-tag {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+      }
+      /* ADD ALL THIS NEW CODE HERE: */
+  
+      /* Better mobile touch targets */
+      .project-card {
+        min-height: 200px;
+      }
+      
+      .nav-links a, .btn {
+        padding: 12px 16px;
+        min-height: 44px;
+      }
+
+      /* Don't change social links positioning */
+      .social-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .social-links a {
+        font-size: 1.2rem;
+        border-bottom: none;
+        padding: 0;
+        min-height: auto;
+      }
+      
+      .skill-tag {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+      }
+      
+      /* Better forms on mobile */
+      .form-control {
+        font-size: 16px;
+        padding: 15px;
+      }
+      
+      .contact-form {
+        padding: 1rem;
+      }
+      
+      /* Better about page mobile */
+      .about-section {
+        padding: 1rem;
+      }
+      
+      .about-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Header -->
+  <header>
+    <nav class="container">
+      <div class="logo">TIMOTHY EBERHARDT PORTFOLIO</div>
+      <ul class="nav-links">
+        <li><a href="#" onclick="toggleAbout()">ABOUT</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- About Section (now a modal/overlay) -->
+  <div class="about-section" id="about-section">
+    <div class="about-header">
+      <div class="about-logo">TIM'S PORTFOLIO</div>
+      <a href="#" onclick="toggleAbout()" class="about-back-link">← BACK TO HOME</a>
+    </div>
+    <div class="about-content">
+      <div class="about-text">
+        <h2>ABOUT ME</h2>
+        <p>Mechanical design engineer specializing in product development, CAD modeling, and prototyping. Experienced in designing mechanical solutions that integrate seamlessly with industrial design while ensuring manufacturability and cost efficiency. Skilled in developing 3D CAD models, creating proof-of-concept prototypes, and refining designs for production. Knowledgeable in mass production processes (injection molding, CNC machining, metal casting, etc.) and supplier collaboration to bring products from concept to reality.</p>
+        
+        <p>Known for hands-on problem-solving, iterative design refinement, and effectively managing concurrent projects. Excels in cross-functional collaboration with designers, engineers, clients, and manufacturers. Passionate about creating innovative, user-centered products while fostering a detail-oriented and team-driven design process.</p>
+        
+        <div class="skills-section">
+          <h3>SKILLS</h3>
+          <div class="skills-list">
+            <span class="skill-tag">CAD MODELING</span>
+            <span class="skill-tag">SOLIDWORKS</span>
+            <span class="skill-tag">RAPID PROTOTYPING</span>
+            <span class="skill-tag">3D PRINTING</span>
+            <span class="skill-tag">INJECTION MOLDING</span>
+            <span class="skill-tag">CNC MACHINING</span>
+            <span class="skill-tag">PRODUCT DEVELOPMENT</span>
+            <span class="skill-tag">DFM</span>
+            <span class="skill-tag">DFA</span>
+            <span class="skill-tag">MECHANICAL DESIGN</span>
+            <span class="skill-tag">PROJECT MANAGEMENT</span>
+            <span class="skill-tag">DESIGN THINKING</span>
+            <span class="skill-tag">MATERIAL SELECTION</span>
+            <span class="skill-tag">PRODUCT TESTING</span>
+            <span class="skill-tag">SUPPLIER MANAGEMENT</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-image-container">
+        <div class="profile-image">
+          <img src="images/headshot_image.jpeg" alt="Timothy Eberhardt" class="profile-image"> 
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+      <div style="display: flex; justify-content: space-between; max-width: 1000px; margin: 0 auto;">
+        <p>© 2025 TIMOTHY EBERHARDT. EHEART DESIGN.</p>
+      <div style="display: flex; justify-content: flex-end; max-width: 1000px; margin: 0 auto;">
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/timothy-eberhardt-product-design/" target="_blank">LINKEDIN</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Projects Grid - Main Content -->
+  <div class="projects-container">
+    <div class="project-grid">
+      <!-- Project 1 (Large) -->
+      <div class="project-card project-large">
+        <img src="images/portfolio_image_1.jpg" alt="Organ Modeling Project">
+        <div class="project-info">
+          <h3 class="project-title">ORGAN MODELING</h3>
+          <p class="project-tags">3D DESIGN / MEDICAL / RESEARCH</p>
+          <a href="project1.html">VIEW PROJECT →</a>
+        </div>
+      </div>
+      
+      <!-- Project 2 (Medium) -->
+      <div class="project-card project-medium project-offset-right">
+        <img src="images/tictactoe/tictactoe_image_1.JPG" alt="3D Tic-Tac-Toe">
+        <div class="project-info">
+          <h3 class="project-title">3D Tic-Tac-Toe</h3>
+          <p class="project-tags">PRODUCT DESIGN / DEVELOPMENT DOCUMENTATION / DFM</p>
+          <a href="project2.html">VIEW PROJECT →</a>
+        </div>
+      </div>
+      
+      <!-- Project 3 (Small) -->
+      <div class="project-card project-tall project-row2-start">
+        <img src="images/banag/banag_image_1.jpg" alt="BANAG">
+        <div class="project-info">
+          <h3 class="project-title">BANAG</h3>
+          <p class="project-tags">DESIGN / MANUFACTURING / MARKET ANALYSIS / RESEARCH</p>
+          <a href="project3.html">VIEW PROJECT →</a>
+        </div>
+      </div>
+      
+      <!-- Project 4 (Tall) -->
+      <div class="project-card project-tall project-offset-down">
+        <img src="images/pulmonary/pulmonarty_image_1.jpg" alt="Tall Project">
+        <div class="project-info">
+          <h3 class="project-title">PULMONARY ANATOMY MODEL</h3>
+          <p class="project-tags">RESEARCH / ORGAN MODELING / DEVELOPMENT</p>
+          <a href="project4.html">VIEW PROJECT →</a>
+        </div>
+      </div>
+      
+      <!-- Project 5 (Wide) -->
+      <div class="project-card project-tall project-offset-right">
+        <img src="images/wobbly/wobbly_image_1.jpg" alt="Wide Project">
+        <div class="project-info">
+          <h3 class="project-title">WOBBLY TABLE PROTOTYPE</h3>
+          <p class="project-tags">DESIGN / MECHANISM / RAPID PROTOTYPING</p>
+          <a href="project5.html">VIEW PROJECT →</a>
+        </div>
+      </div>
+      
+      <!-- Project 6 (Medium) -->
+      <div class="project-card project-medium ">
+        <img src="images/hogyo/hogyo_image_11.jpeg" alt="Another Project">
+        <div class="project-info">
+          <h3 class="project-title">HOGYO LAMP</h3>
+          <p class="project-tags">3D PRINTING / PYTHON / FULLCONTROL</p>
+          <a href="project6.html">VIEW PROJECT →</a>
+        </div>
+      </div>
+      
+  <!--
+       Project 7 (Small) 
+      <div class="project-card project-small project-offset-up">
+        <img src="/api/placeholder/400/300" alt="Small Project">
+        <div class="project-info">
+          <h3 class="project-title">ICON SYSTEM</h3>
+          <p class="project-tags">SVG / DESIGN / UI</p>
+          <a href="#">VIEW PROJECT →</a>
+        </div>
+      </div>
+  -->
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <h2>CONTACT</h2>
+      <form class="contact-form">
+        <div class="form-group">
+          <label for="name">NAME</label>
+          <input type="text" id="name" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="email">EMAIL</label>
+          <input type="email" id="email" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="message">MESSAGE</label>
+          <textarea id="message" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn">SEND MESSAGE</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>© 2025 TIMOTHY EBERHARDT. EHEART DESIGN.</p>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/timothy-eberhardt-product-design/" target="_blank">LINKEDIN</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+
+    // About Section Toggle
+    function toggleAbout() {
+      const aboutSection = document.getElementById('about-section');
+      aboutSection.classList.toggle('open');
+    }
+
+    // Smooth Scrolling for Internal Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        if (this.getAttribute('href') === '#' || this.hasAttribute('onclick')) return;
+        
+        e.preventDefault();
+        
+        const targetElement = document.querySelector(this.getAttribute('href'));
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Add Project Function for dynamic content addition
+    function addProject(title, image, category, link, size, offset = '') {
+      const projectGrid = document.querySelector('.project-grid');
+      
+      const projectCard = document.createElement('div');
+      projectCard.className = `project-card ${size} ${offset}`;
+      
+      projectCard.innerHTML = `
+        <img src="${image}" alt="${title}">
+        <div class="project-info">
+          <h3 class="project-title">${title}</h3>
+          <p class="project-tags">${category}</p>
+          <a href="${link}">VIEW PROJECT →</a>
+        </div>
+      `;
+      
+      projectGrid.appendChild(projectCard);
+    }
+
+    // Example usage of addProject function:
+    // addProject('NEW PROJECT', '/api/placeholder/600/400', 'WEB / UX / DESIGN', '#', 'project-medium', 'project-offset-up');
+
+    // Randomize project offsets on page load for variety
+    function randomizeProjectOffsets() {
+      const offsets = ['project-offset-up', 'project-offset-down', 'project-offset-left', 'project-offset-right'];
+      const projectCards = document.querySelectorAll('.project-card');
+      
+      projectCards.forEach(card => {
+        // Clear existing offset classes
+        offsets.forEach(offset => card.classList.remove(offset));
+        
+        // Add random offset to some cards (50% chance)
+        if (Math.random() > 0.5) {
+          const randomOffset = offsets[Math.floor(Math.random() * offsets.length)];
+          card.classList.add(randomOffset);
+        }
+      });
+    }
+
+    // Run on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      // Initialize project layout
+      //randomizeProjectOffsets();
+      
+      // Check URL parameters for potential settings
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+      }
+    });
+  </script>
+</body>
+</html>
+

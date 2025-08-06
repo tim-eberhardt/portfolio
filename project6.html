@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Project Name - Tim's Portfolio</title>
+  <style>
+    /* CSS Variables for customization */
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --accent-color: #ff0000;
+      --border-color: #000000;
+      --border-width: 2px;
+      --font-main: 'Courier New', monospace;
+      --font-heading: 'Arial', sans-serif;
+      --spacing: 2rem;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-main);
+      line-height: 1.3;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing);
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: var(--spacing);
+    }
+
+    h1 {
+      font-size: 3rem;
+      line-height: 0.9;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-top: var(--spacing);
+      margin-bottom: var(--spacing);
+      position: relative;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: calc(var(--spacing) / 2);
+    }
+
+    p {
+      margin-bottom: var(--spacing);
+      max-width: 85ch;
+    }
+
+    a {
+      color: var(--text-color);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent-color);
+      padding-bottom: 2px;
+      font-weight: bold;
+    }
+
+    a:hover {
+      background-color: var(--accent-color);
+      color: #ffffff;
+    }
+
+    /* Header */
+    header {
+      border-bottom: var(--border-width) solid var(--border-color);
+      padding-bottom: var(--spacing);
+      margin-bottom: calc(var(--spacing) * 2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    .back-link {
+      display: inline-block;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      font-weight: bold;
+      border-bottom: none;
+    }
+
+    .back-link:hover {
+      background-color: transparent;
+      color: var(--accent-color);
+    }
+
+    /* Project Detail Styles */
+    .project-hero {
+      margin-bottom: calc(var(--spacing) * 2);
+      border: var(--border-width) solid var(--border-color);
+      border-radius: 8px; /* Add this line */
+      overflow: hidden; /* Add this to ensure image corners are clipped */
+    }
+
+    .project-hero img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing);
+    }
+
+    .meta-item {
+      margin-bottom: var(--spacing);
+      min-width: 200px;
+    }
+
+    .meta-item h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      background-color: var(--text-color);
+      color: var(--bg-color);
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .executive-summary {
+      margin-bottom: calc(var(--spacing) * 2);
+    }
+
+    .project-gallery {
+      column-count: 3;
+      column-gap: var(--spacing);
+      margin-bottom: calc(var(--spacing) * 2);
+    }
+
+    .gallery-item {
+      border: var(--border-width) solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      break-inside: avoid; /* Prevents items from breaking across columns */
+      margin-bottom: var(--spacing);
+      display: inline-block;
+      width: 100%;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto; /* Natural height */
+      display: block;
+    }
+
+    /* Show More Button */
+    .show-more-section {
+      display: flex;
+      justify-content: center;
+      margin-bottom: calc(var(--spacing) * 2);
+    }
+
+    .show-more-btn {
+      background-color: var(--text-color);
+      color: var(--bg-color);
+      padding: 15px 30px;
+      border: none;
+      font-family: var(--font-heading);
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 1rem;
+      cursor: pointer;
+      border-bottom: none;
+      transition: all 0.3s ease;
+    }
+
+    .show-more-btn:hover {
+      background-color: var(--accent-color);
+      color: #ffffff;
+    }
+
+    /* Project Navigation */
+    .project-nav {
+      display: flex;
+      justify-content: space-between;
+      padding-top: var(--spacing);
+      border-top: var(--border-width) solid var(--border-color);
+    }
+
+    .nav-item {
+      text-transform: uppercase;
+      border-bottom: none;
+      font-weight: bold;
+    }
+
+    .nav-item:hover {
+      background-color: transparent;
+      color: var(--accent-color);
+    }
+
+    /* Footer */
+    footer {
+      border-top: var(--border-width) solid var(--border-color);
+      padding-top: var(--spacing);
+      margin-top: calc(var(--spacing) * 2);
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .social-links a {
+      font-size: 1.2rem;
+      border-bottom: none;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+      --bg-color: #000000;
+      --text-color: #ffffff;
+      --border-color: #ffffff;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      :root {
+        --spacing: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .project-meta {
+        flex-direction: column;
+      }
+
+      .project-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: var(--spacing);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">TIM'S PORTFOLIO</div>
+    <a href="index.html" class="back-link">← BACK TO HOME</a>
+  </header>
+
+  <h1>HOGYO LAMP</h1>
+
+  <!-- Project Hero Image -->
+  <div class="project-hero">
+    <img src="images/hogyo/hogyo_image_11.jpeg" alt="Project Name">
+  </div>
+
+  <!-- Project Metadata -->
+  <div class="project-meta">
+    <div class="meta-item">
+      <h3>CLIENT</h3>
+      <p>ME</p>
+    </div>
+    <div class="meta-item">
+      <h3>TIMELINE</h3>
+      <p>JULY 2025</p>
+    </div>
+    <div class="meta-item">
+      <h3>ROLE</h3>
+      <p>Design, Manufacture, Reserach </p>
+    </div>
+    <div class="meta-item">
+      <h3>SKILLS</h3>
+      <div class="tag-list">
+        <span class="tag">3D PRINTING</span>
+        <span class="tag">PYTHON</span>
+        <span class="tag">FULL CONTROL GITHUB</span>
+        <span class="tag">LIGHTING DESIGN </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="executive-summary">
+    <h2>EXECUTIVE SUMMARY</h2>
+
+    <p>The proliferation of 3D printed products in recent years, particularly in lighting design, has opened new possibilities for creative manufacturing. I'm particularly drawn to how designers use 3D printing to create textured lampshades that diffuse light in compelling ways. This project aimed to develop a textured 3D printed lampshade that both celebrates the manufacturing process and creates beautiful, soft light diffusion.</p>
+   
+    <p>During my research into existing 3D printed lighting solutions, I discovered FullControl—a Python-based software that generates custom G-code for additive manufacturing. A secondary objective became learning to leverage the FullControl GitHub repository to create custom G-code, enabling shapes and textures that would be unfeasible through traditional CAD modeling and slicing workflows.</p>
+
+    <p>The design inspiration for the Hogyo Lamp draws from traditional Japanese architecture and the aesthetic principles of the brand Wooj.</p>
+
+    <p>The resulting lamp successfully demonstrates both the aesthetic potential and technical capabilities of custom G-code 3D printing.</p>
+</div>
+
+  <!-- Project Gallery -->
+  <h2>PROJECT GALLERY</h2>
+  <div class="project-gallery">
+    <div class="gallery-item">
+      <img src="images/hogyo/hogyo_image_12.jpg" alt="Project detail 9">
+    </div>
+    <div class="gallery-item">
+      <img src="images/hogyo/hogyo_image_4.jpeg" alt="Project detail 9">
+    </div>
+    <div class="gallery-item">
+      <img src="images/hogyo/hogyo_image_5.jpeg" alt="Project detail 9">
+    </div>
+    <div class="gallery-item">
+      <img src="images/hogyo/hogyo_image_6.jpeg" alt="Project detail 9">
+    </div>
+    <div class="gallery-item">
+      <img src="images/hogyo/hogyo_image_7.jpeg" alt="Project detail 1">
+    </div>
+    <div class="gallery-item">
+      <img src="images/hogyo/hogyo_image_8.jpeg" alt="Project detail 3">
+    </div>
+    <div class="gallery-item">
+      <img src="images/hogyo/hogyo_image_9.jpeg" alt="Project detail 3">
+    </div>
+    <div class="gallery-item">
+      <img src="images/hogyo/hogyo_image_10.jpeg" alt="Project detail 3">
+    </div>
+    <div class="gallery-item">
+      <img src="images/hogyo/hogyo_image_2.jpeg" alt="Project detail 3">
+    </div>
+  </div>
+
+  <!-- Show More Button -->
+  <div class="show-more-section" style="display: none;">
+    <a href="project1-detailed.html" class="show-more-btn">SHOW MORE</a>
+  </div>
+
+  <!-- Project Navigation -->
+  <div class="project-nav">
+    <a href="project5.html" class="nav-item">← PREVIOUS PROJECT</a>
+    <a href="index.html" class="nav-item">NEXT PROJECT →</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>© 2025 TIMOTHY EBERHARDT. EHEART DESIGN.</p>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/timothy-eberhardt-product-design/" target="_blank">LINKEDIN</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Toggle Dark Mode (if you want to keep this functionality)
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    // Check for URL parameters to potentially toggle dark mode based on main page setting
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+      }
+    });
+  </script>
+</body>
+</html>
